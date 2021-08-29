@@ -108,10 +108,10 @@ class _PushButtonState<T extends Object> extends State<PushButton<T>> {
     // The actual "pressing" of the button happens via the `ActivateIntent`.
     // This code merely visually shows the button in the pressed state.
     final Iterable<LogicalKeyboardKey> activateKeys = WidgetsApp.defaultShortcuts.entries
-        .where((MapEntry<LogicalKeySet, Intent> entry) => entry.value is ActivateIntent)
-        .map<LogicalKeySet>((MapEntry<LogicalKeySet, Intent> entry) => entry.key)
-        .where((LogicalKeySet keySet) => keySet.keys.length == 1)
-        .map<LogicalKeyboardKey>((LogicalKeySet keySet) => keySet.keys.single);
+        .where((MapEntry<ShortcutActivator, Intent> entry) => entry.value is ActivateIntent)
+        .map<ShortcutActivator>((MapEntry<ShortcutActivator, Intent> entry) => entry.key)
+        .where((ShortcutActivator keySet) => keySet.triggers?.length == 1)
+        .map<LogicalKeyboardKey>((ShortcutActivator keySet) => keySet.triggers!.single);
     if (activateKeys.contains(event.logicalKey)) {
       setState(() {
         pressed = event is RawKeyDownEvent;
